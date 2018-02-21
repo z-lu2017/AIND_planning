@@ -531,10 +531,11 @@ class PlanningGraph():
         # for each goal in the problem, determine the level cost, then add them together
         for g in self.problem.goal:
             isSuccessful = False
-            while not isSuccessful:
-                for level in self.s_levels:
-                    for n in level:
-                        if n.symbol == g:
-                            level_sum += self.s_levels.index(level)
-                            isSuccessful = True
+            for level in self.s_levels:
+                if isSuccessful:
+                    break
+                for n in level:
+                    if n.is_pos == True and n.symbol == g:
+                        level_sum += self.s_levels.index(level)
+                        isSuccessful = True
         return level_sum
